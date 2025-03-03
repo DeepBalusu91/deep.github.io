@@ -22,7 +22,6 @@
   </section>
 
   <CharacterExperience v-if="showExperience" ref="experienceSection" />
-
   <section v-if="showSkills" ref="skillsSection">
     <SkillsetMatrix />
   </section>
@@ -108,25 +107,34 @@ export default {
 </script>
 
 <style scoped>
+/* Set the body background to black */
+body {
+  background-color: #000000; /* Black background for the whole page */
+  color: #fff; /* White text for readability */
+  margin: 0;
+  font-family: 'Helvetica', sans-serif;
+}
+
+/* Hero Section */
 .hero {
-  background-color: #121212;
-  color: white;
+  background-color: #111111; /* Dark background to make neon pop */
+  color: #fff; /* Ensure text stands out against the dark background */
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-family: 'Arial', sans-serif;
   padding: 30px;
-  position: relative;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Darker shadow for a deeper look */
 }
 
 .hero-content {
   max-width: 800px;
   padding: 20px;
-  background-color: rgba(33, 33, 33, 0.8); /* Semi-transparent dark background */
-  border-radius: 15px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+  background-color: #222222; /* Dark background for content */
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   position: relative;
   z-index: 1;
 }
@@ -136,77 +144,86 @@ export default {
   line-height: 1.8;
   margin-bottom: 30px;
   font-style: italic;
-  color: #B0B0B0;
+  color: #bbb; /* Slightly lighter gray for description text */
 }
 
+/* CTA Buttons with Neon Light Effect */
 .cta-btn-connect, .cta-btn-experience {
-  background-color: #00FF00; /* Neon Green */
+  background-color: #00BFFF; /* Neon blue for the glowing effect */
   padding: 15px 30px;
   font-size: 1.1rem;
-  color: black;
+  color: #000;
   text-decoration: none;
-  border-radius: 30px;
+  border-radius: 25px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: inline-block;
+  box-shadow: 0 0 10px #00BFFF, 0 0 20px #00BFFF, 0 0 30px #00BFFF; /* Neon blue glow effect */
 }
 
 .cta-btn-connect:hover, .cta-btn-experience:hover {
-  background-color: #00CC00; /* Darker Green for hover */
-  box-shadow: 0 0 15px 5px rgba(0, 255, 0, 0.7);
+  transform: scale(1.05); /* Slightly scale up the button on hover */
+  box-shadow: 0 0 30px #00BFFF, 0 0 40px #00BFFF, 0 0 60px #00BFFF; /* Glowing effect intensifies */
 }
 
+.cta-btn-connect:active, .cta-btn-experience:active {
+  transform: scale(1); /* Reset scale on click */
+}
+
+/* Profile Picture */
 .profile-pic {
   width: 150px;
   height: 150px;
   border-radius: 50%;
   margin-bottom: 20px;
   object-fit: cover;
-  border: 5px solid #00FF00; /* Neon Green Border */
-  box-shadow: 0 0 15px 5px rgba(0, 255, 0, 0.7);
+  border: 5px solid #00BFFF; /* Neon blue border around the profile picture */
+  box-shadow: 0 0 10px #00BFFF; /* Neon glow effect */
 }
 
+/* Contact Section */
 .contact-profile {
   padding: 40px 20px;
-  background-color: rgba(33, 33, 33, 0.9);
-  color: white;
+  background-color: #222222; /* Dark background for contact section */
+  color: #fff;
   text-align: center;
-  border-radius: 15px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   margin-top: 40px;
 }
 
 .contact-profile h2 {
   margin-bottom: 20px;
   font-family: 'Georgia', serif;
-  color: #00FF00; /* Neon Green */
+  color: #00BFFF; /* Neon blue heading */
 }
 
 .contact-info p {
   font-size: 1.1rem;
   margin: 8px 0;
   font-style: italic;
-  color: #B0B0B0;
+  color: #bbb; /* Light gray text for contact info */
 }
 
 .contact-info a {
-  color: #00FF00; /* Neon Green */
+  color: #00BFFF; /* Neon blue links */
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .contact-info a:hover {
-  color: #00CC00; /* Darker Neon Green */
+  color: #1E90FF; /* Change to neon blue on hover */
   text-decoration: underline;
 }
 
-/* Adding neon glow to the header */
+/* Headings */
 h1 {
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: #00FF00; /* Neon Green */
-  text-shadow: 0 0 10px rgba(0, 255, 0, 0.7), 0 0 20px rgba(0, 255, 0, 0.7), 0 0 30px rgba(0, 255, 0, 0.7);
+  color: #00BFFF; /* Neon blue heading */
+  text-shadow: 0 0 15px #00BFFF, 0 0 20px #00BFFF; /* Glowing neon effect */
 }
 </style>

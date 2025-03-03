@@ -109,7 +109,7 @@ export default {
 }
 
 .skill-category h3 {
-  color: #00FF00;
+  color: #00BFFF; /* Neon blue */
   text-decoration: underline;
   margin-bottom: 15px;
 }
@@ -128,7 +128,7 @@ export default {
 
 .skills-table th {
   background-color: #333;
-  color: #00FF00;
+  color: #00BFFF; /* Neon blue */
 }
 
 .skills-table td {
@@ -145,6 +145,6 @@ export default {
 }
 
 .skills-table tr:hover td {
-  color: #00FF00; /* Highlight text on hover */
+  color: #00BFFF; /* Highlight text on hover with neon blue */
 }
 </style>
