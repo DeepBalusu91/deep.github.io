@@ -11,47 +11,54 @@
       <br><br/>
       <br><br/>
 
-      <!-- Experience Button -->
       <a href="javascript:void(0);" @click="showExperienceSection" class="cta-btn-experience">Experience</a>
       <br><br/>
       <br><br/>
-      <a href="https://github.com/DeepBalusu91/personal" class="cta-btn-experience">Personal Git Repo</a>
+      <a href="https://github.com/DeepBalusu91" class="cta-btn-experience">Personal Git Repo</a>
+      <br><br/>
+      <br><br/>
+      <a href="javascript:void(0);" @click="showSkillsSection" class="cta-btn-experience">Skills</a>
     </div>
   </section>
 
-  <!-- Conditionally render the CharacterExperience component -->
   <CharacterExperience v-if="showExperience" ref="experienceSection" />
 
-  <!-- Conditionally render the Contact Profile Section -->
+  <section v-if="showSkills" ref="skillsSection">
+    <SkillsetMatrix />
+  </section>
+
   <section v-if="showContact" id="contact" class="contact-profile" ref="contactSection">
     <h2>Contact Me</h2>
     <p>If you'd like to get in touch, feel free to reach out through any of the options below:</p>
     <div class="contact-info">
       <p><strong>Phone:</strong> <a href="tel">+1 (972) 214-5768</a></p>
       <p><strong>Email:</strong> <a href="mailto:deep@example.com">deep.balusu@gmail.com</a></p>
-      <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/deep" target="_blank" rel="noopener noreferrer">linkedin.com/in/deep</a></p>
+      <p><strong>LinkedIn:</strong> <a href="linkedin.com/in/deep-balusu-925918148" target="_blank" rel="noopener noreferrer">linkedin.com/in/deep</a></p>
     </div>
   </section>
 </template>
 
 <script>
-// Import the CharacterExperience component
 import CharacterExperience from './CharacterExperience.vue';
+import SkillsetMatrix from './SkillSet.vue';
 
 export default {
   name: 'CharacterProfile',
   components: {
-    CharacterExperience
+    CharacterExperience,
+    SkillsetMatrix
   },
   data() {
     return {
       showExperience: false, // Control visibility of Experience section
+      showSkills: false,     // Control visibility of Skills section
       showContact: false,    // Control visibility of Contact section
     };
   },
   methods: {
     showExperienceSection() {
       this.showExperience = true;
+      this.showSkills = false;
       this.showContact = false;
 
       this.$nextTick(() => {
@@ -65,9 +72,26 @@ export default {
       });
     },
 
+    showSkillsSection() {
+      this.showSkills = true;
+      this.showExperience = false;
+      this.showContact = false;
+
+      this.$nextTick(() => {
+        // Scroll into view for the Skills section
+        if (this.$refs.skillsSection) {
+          this.$refs.skillsSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start', // Align to the top of the viewport
+          });
+        }
+      });
+    },
+
     showContactSection() {
       this.showContact = true;
       this.showExperience = false;
+      this.showSkills = false;
 
       this.$nextTick(() => {
         // Scroll into view for the Contact section
@@ -84,7 +108,6 @@ export default {
 </script>
 
 <style scoped>
-/* Dark Mode with Neon Highlights */
 .hero {
   background-color: #121212;
   color: white;
