@@ -7,10 +7,6 @@
         As a passionate and results-driven Fullstack Developer and Test Automation Engineer, I specialize in leveraging Java to build robust backend solutions while ensuring the highest quality standards through automated testing frameworks. With experience in both Java development and test automation strategies, I bridge the gap between software engineering and quality assurance. I am skilled in designing scalable, maintainable solutions and automating complex test scenarios, contributing to faster release cycles and seamless application performance. My expertise spans frontend, backend, and test automation technologies, making me a versatile asset for any development or quality-focused team.
       </p>
       <br><br/>
-      <a href="javascript:void(0);" @click="showContactSection" class="cta-btn-connect">Let's Connect!</a>
-      <br><br/>
-      <br><br/>
-
       <a href="javascript:void(0);" @click="showExperienceSection" class="cta-btn-experience">Experience</a>
       <br><br/>
       <br><br/>
@@ -18,6 +14,9 @@
       <br><br/>
       <br><br/>
       <a href="javascript:void(0);" @click="showSkillsSection" class="cta-btn-experience">Skills</a>
+            <br><br/>
+            <br><br/>
+            <a href="javascript:void(0);" @click="showContactSection" class="cta-btn-connect">Let's Connect!</a>
     </div>
   </section>
 
