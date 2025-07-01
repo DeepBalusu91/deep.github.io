@@ -1,18 +1,12 @@
 <template>
   <div id="app">
-    <!-- Add the CharacterProfile component in the template -->
-    <CharacterProfile />
+    <router-view />
   </div>
 </template>
 
 <script>
-import CharacterProfile from './components/CharacterProfile.vue'
-
 export default {
-  name: 'App',
-  components: {
-    CharacterProfile
-  }
+  name: 'App'
 }
 </script>
 

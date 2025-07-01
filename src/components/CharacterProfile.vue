@@ -14,9 +14,13 @@
       <br><br/>
       <br><br/>
       <a href="javascript:void(0);" @click="showSkillsSection" class="cta-btn-experience">Skills</a>
-            <br><br/>
-            <br><br/>
-            <a href="javascript:void(0);" @click="showContactSection" class="cta-btn-connect">Let's Connect!</a>
+      <br><br/>
+      <br><br/>
+      <a href="javascript:void(0);" @click="showContactSection" class="cta-btn-connect">Let's Connect!</a>
+      <br><br/>
+       <br><br/>
+      <!-- Journal Button added here -->
+      <router-link to="/journal" class="cta-btn-experience">📓 My Journal</router-link>
     </div>
   </section>
 
@@ -31,7 +35,7 @@
     <div class="contact-info">
       <p><strong>Phone:</strong> <a href="tel">+1 (972) 214-5768</a></p>
       <p><strong>Email:</strong> <a href="mailto:deep@example.com">deep.balusu@gmail.com</a></p>
-      <p><strong>LinkedIn:</strong> <a href="linkedin.com/in/deep-balusu-925918148" target="_blank" rel="noopener noreferrer">linkedin.com/in/deep</a></p>
+      <p><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/deep-balusu-925918148" target="_blank" rel="noopener noreferrer">linkedin.com/in/deep</a></p>
     </div>
   </section>
 </template>
@@ -48,9 +52,9 @@ export default {
   },
   data() {
     return {
-      showExperience: false, // Control visibility of Experience section
-      showSkills: false,     // Control visibility of Skills section
-      showContact: false,    // Control visibility of Contact section
+      showExperience: false,
+      showSkills: false,
+      showContact: false,
     };
   },
   methods: {
@@ -60,11 +64,10 @@ export default {
       this.showContact = false;
 
       this.$nextTick(() => {
-        // Scroll into view for the Experience section
         if (this.$refs.experienceSection) {
           this.$refs.experienceSection.$el.scrollIntoView({
             behavior: 'smooth',
-            block: 'start', // Align to the top of the viewport
+            block: 'start',
           });
         }
       });
@@ -76,11 +79,10 @@ export default {
       this.showContact = false;
 
       this.$nextTick(() => {
-        // Scroll into view for the Skills section
         if (this.$refs.skillsSection) {
           this.$refs.skillsSection.scrollIntoView({
             behavior: 'smooth',
-            block: 'start', // Align to the top of the viewport
+            block: 'start',
           });
         }
       });
@@ -92,11 +94,10 @@ export default {
       this.showSkills = false;
 
       this.$nextTick(() => {
-        // Scroll into view for the Contact section
         if (this.$refs.contactSection) {
           this.$refs.contactSection.scrollIntoView({
             behavior: 'smooth',
-            block: 'start', // Align to the top of the viewport
+            block: 'start',
           });
         }
       });
@@ -106,18 +107,18 @@ export default {
 </script>
 
 <style scoped>
-/* Set the body background to black */
+/* your existing styles unchanged */
 body {
-  background-color: #000000; /* Black background for the whole page */
-  color: #fff; /* White text for readability */
+  background-color: #000000;
+  color: #fff;
   margin: 0;
   font-family: 'Helvetica', sans-serif;
 }
 
 /* Hero Section */
 .hero {
-  background-color: #111111; /* Dark background to make neon pop */
-  color: #fff; /* Ensure text stands out against the dark background */
+  background-color: #111111;
+  color: #fff;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -125,13 +126,13 @@ body {
   text-align: center;
   padding: 30px;
   border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Darker shadow for a deeper look */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .hero-content {
   max-width: 800px;
   padding: 20px;
-  background-color: #222222; /* Dark background for content */
+  background-color: #222222;
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   position: relative;
@@ -143,12 +144,12 @@ body {
   line-height: 1.8;
   margin-bottom: 30px;
   font-style: italic;
-  color: #bbb; /* Slightly lighter gray for description text */
+  color: #bbb;
 }
 
 /* CTA Buttons with Neon Light Effect */
 .cta-btn-connect, .cta-btn-experience {
-  background-color: #00BFFF; /* Neon blue for the glowing effect */
+  background-color: #00BFFF;
   padding: 15px 30px;
   font-size: 1.1rem;
   color: #000;
@@ -158,16 +159,16 @@ body {
   letter-spacing: 1px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: inline-block;
-  box-shadow: 0 0 10px #00BFFF, 0 0 20px #00BFFF, 0 0 30px #00BFFF; /* Neon blue glow effect */
+  box-shadow: 0 0 10px #00BFFF, 0 0 20px #00BFFF, 0 0 30px #00BFFF;
 }
 
 .cta-btn-connect:hover, .cta-btn-experience:hover {
-  transform: scale(1.05); /* Slightly scale up the button on hover */
-  box-shadow: 0 0 30px #00BFFF, 0 0 40px #00BFFF, 0 0 60px #00BFFF; /* Glowing effect intensifies */
+  transform: scale(1.05);
+  box-shadow: 0 0 30px #00BFFF, 0 0 40px #00BFFF, 0 0 60px #00BFFF;
 }
 
 .cta-btn-connect:active, .cta-btn-experience:active {
-  transform: scale(1); /* Reset scale on click */
+  transform: scale(1);
 }
 
 /* Profile Picture */
@@ -177,14 +178,14 @@ body {
   border-radius: 50%;
   margin-bottom: 20px;
   object-fit: cover;
-  border: 5px solid #00BFFF; /* Neon blue border around the profile picture */
-  box-shadow: 0 0 10px #00BFFF; /* Neon glow effect */
+  border: 5px solid #00BFFF;
+  box-shadow: 0 0 10px #00BFFF;
 }
 
 /* Contact Section */
 .contact-profile {
   padding: 40px 20px;
-  background-color: #222222; /* Dark background for contact section */
+  background-color: #222222;
   color: #fff;
   text-align: center;
   border-radius: 20px;
@@ -195,24 +196,24 @@ body {
 .contact-profile h2 {
   margin-bottom: 20px;
   font-family: 'Georgia', serif;
-  color: #00BFFF; /* Neon blue heading */
+  color: #00BFFF;
 }
 
 .contact-info p {
   font-size: 1.1rem;
   margin: 8px 0;
   font-style: italic;
-  color: #bbb; /* Light gray text for contact info */
+  color: #bbb;
 }
 
 .contact-info a {
-  color: #00BFFF; /* Neon blue links */
+  color: #00BFFF;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .contact-info a:hover {
-  color: #1E90FF; /* Change to neon blue on hover */
+  color: #1E90FF;
   text-decoration: underline;
 }
 
@@ -222,7 +223,7 @@ h1 {
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: #00BFFF; /* Neon blue heading */
-  text-shadow: 0 0 15px #00BFFF, 0 0 20px #00BFFF; /* Glowing neon effect */
+  color: #00BFFF;
+  text-shadow: 0 0 15px #00BFFF, 0 0 20px #00BFFF;
 }
 </style>
