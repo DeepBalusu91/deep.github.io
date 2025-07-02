@@ -1,6 +1,7 @@
 {
   "name": "my-portfolio",
   "version": "0.1.0",
+  "homepage": "https://DeepBalusu91.github.io/",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
