@@ -1,7 +1,7 @@
 <template>
-  <div class="min-vh-100 bg-light py-5">
-    <b-container class="bg-white rounded-4 shadow-lg p-4 mx-auto" style="max-width: 700px;">
-      <h1 class="text-primary text-center mb-4" style="user-select:none;">
+  <div class="journal-wrapper">
+    <b-container class="journal-container">
+      <h1 class="journal-title" style="user-select:none;">
         ✍️ My Online Journal
       </h1>
 
@@ -36,10 +36,10 @@
         <b-alert
           variant="danger"
           show
-          v-if="errorShown"
+          v-if="error"
           class="mt-2"
           dismissible
-          @dismissed="errorShown = false"
+          @dismissed="error = false"
         >
           Incorrect password. Please try again.
         </b-alert>
@@ -85,32 +85,9 @@
           >
             <small class="text-muted mb-2 d-block" style="font-family: monospace;">
               {{ formatDate(entry.date) }}
+              <span v-if="entry.author" class="text-secondary"> — {{ entry.author }}</span>
             </small>
-
-            <div v-if="editingIndex === index">
-              <!-- Editing textarea -->
-              <b-form-textarea
-                v-model="editEntryText"
-                rows="4"
-                class="mb-2"
-              ></b-form-textarea>
-              <b-button size="sm" variant="success" @click="saveEdit(index)" class="me-2">
-                Save
-              </b-button>
-              <b-button size="sm" variant="secondary" @click="cancelEdit">
-                Cancel
-              </b-button>
-            </div>
-
-            <div v-else>
-              <p style="white-space: pre-line;">{{ entry.text }}</p>
-              <b-button size="sm" variant="warning" class="me-2" @click="startEdit(index)">
-                Edit
-              </b-button>
-              <b-button size="sm" variant="danger" @click="deleteEntry(index)">
-                Delete
-              </b-button>
-            </div>
+            <p style="white-space: pre-line;">{{ entry.text }}</p>
           </b-card>
         </div>
 
@@ -131,73 +108,173 @@ export default {
       entries: [],
       passwordInput: "",
       unlocked: false,
-      errorShown: false,
-      editingIndex: null,
-      editEntryText: "",
+      error: false,
     };
   },
   mounted() {
+    // Try to load entries from localStorage as a fallback
     const saved = localStorage.getItem("journalEntries");
     if (saved) {
-      this.entries = JSON.parse(saved);
+      this.entries = JSON.parse(saved).map(e => ({
+        ...e,
+        date: new Date(e.date)
+      }));
     }
   },
   methods: {
-    addEntry() {
+    async addEntry() {
       if (!this.newEntry.trim()) return;
-      const newLog = {
+
+      const entryPayload = {
         text: this.newEntry.trim(),
-        date: new Date(),
+        author: "Deep"
       };
-      this.entries.unshift(newLog);
-      this.newEntry = "";
-      localStorage.setItem("journalEntries", JSON.stringify(this.entries));
+
+      try {
+        const response = await fetch("https://7oextb26ybeuoptz5f355jqphq0zjhva.lambda-url.us-east-1.on.aws/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(entryPayload),
+        });
+
+        if (response.ok) {
+          const newLog = {
+            text: entryPayload.text,
+            date: new Date(),
+            author: entryPayload.author
+          };
+          this.entries.unshift(newLog);
+          this.newEntry = "";
+          localStorage.setItem("journalEntries", JSON.stringify(this.entries));
+        } else {
+          const errorData = await response.json();
+          alert("Failed to save entry: " + (errorData.error || "Unknown error"));
+        }
+      } catch (error) {
+        console.error("Error saving entry:", error);
+        alert("Error saving entry. Please try again.");
+      }
     },
+
+    async fetchEntries() {
+      try {
+        const res = await fetch("https://7oextb26ybeuoptz5f355jqphq0zjhva.lambda-url.us-east-1.on.aws/");
+        if (res.ok) {
+          const data = await res.json();
+          this.entries = data
+            .map(e => ({
+              text: e.text,
+              date: new Date(e.createdAt),
+              author: e.author || "anonymous"
+            }))
+            .sort((a, b) => b.date - a.date);
+          localStorage.setItem("journalEntries", JSON.stringify(this.entries));
+        }
+      } catch (error) {
+        console.error("Failed to fetch entries", error);
+      }
+    },
+
+    checkPassword() {
+      if (!this.passwordInput.trim()) return;
+
+      const payload = JSON.stringify({
+        passwordInput: this.passwordInput.trim(),
+      });
+
+      fetch("https://reevkfao7slsdwkianyo72vx540mtnyx.lambda-url.us-east-1.on.aws", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: payload,
+      })
+        .then(async (res) => {
+          const data = await res.json();
+
+          if (res.status === 200 && data.message === "Access granted") {
+            this.unlocked = true;
+            this.error = false;
+            this.passwordInput = "";
+            this.fetchEntries();
+          } else {
+            this.error = true;
+          }
+        })
+        .catch(() => {
+          this.error = true;
+        });
+    },
+
     formatDate(date) {
       return new Date(date).toLocaleString("en-US", {
         dateStyle: "medium",
         timeStyle: "short",
       });
     },
-    checkPassword() {
-      const correctPassword = "deep1234"; // Change this to your real password
-      if (this.passwordInput.trim() === correctPassword) {
-        this.unlocked = true;
-        this.errorShown = false;
-      } else {
-        this.errorShown = true;
-      }
-    },
-
-    startEdit(index) {
-      this.editingIndex = index;
-      this.editEntryText = this.entries[index].text;
-    },
-    cancelEdit() {
-      this.editingIndex = null;
-      this.editEntryText = "";
-    },
-    saveEdit(index) {
-      if (!this.editEntryText.trim()) return;
-      this.entries[index].text = this.editEntryText.trim();
-      this.editingIndex = null;
-      this.editEntryText = "";
-      localStorage.setItem("journalEntries", JSON.stringify(this.entries));
-    },
-    deleteEntry(index) {
-      if (confirm("Are you sure you want to delete this entry?")) {
-        this.entries.splice(index, 1);
-        localStorage.setItem("journalEntries", JSON.stringify(this.entries));
-      }
-    },
   },
 };
 </script>
 
 <style scoped>
-/* Optional: smooth font rendering */
-* {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.journal-wrapper {
+  position: relative;
+  min-height: 100vh;
+  padding: 3rem 1rem;
+  background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.journal-container {
+  max-width: 700px;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 1rem;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.journal-title {
+  color: #2e4a1e;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  font-family: 'Georgia', serif;
+  text-align: center;
+  user-select: none;
+}
+
+.text-primary {
+  color: #2e4a1e !important;
+}
+
+.b-button,
+.b-form-input,
+.b-form-textarea {
+  border-radius: 8px !important;
+}
+
+.b-button {
+  background-color: #4a7c28 !important;
+  border-color: #4a7c28 !important;
+  color: white !important;
+  font-weight: 600;
+}
+
+.b-button:hover {
+  background-color: #6da437 !important;
+  border-color: #6da437 !important;
+}
+
+.b-alert {
+  font-weight: 600;
+}
+
+/* monospace small date text */
+small {
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: #6b8e23;
 }
 </style>

@@ -1,6 +1,8 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 import CharacterProfile from '@/components/CharacterProfile.vue';
 import JournalView from '@/components/JournalView.vue';
+import BookList from '@/components/BookList.vue';
+import JournalPublicView from '@/components/JournalPublicView.vue';
 
 const routes = [
   {
@@ -13,10 +15,20 @@ const routes = [
     name: 'JournalView',
     component: JournalView,
   },
+  {
+      path: '/journal/view',
+      name: 'JournalPublicView',
+      component: JournalPublicView,
+    },
+  {
+    path: '/books', // ✅ New route for the BookList
+    name: 'BookList',
+    component: BookList,
+  },
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes,
 });
 

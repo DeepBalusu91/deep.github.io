@@ -90,61 +90,64 @@ export default {
 <style scoped>
 .skillset {
   text-align: center;
-  color: white;
-  background-color: rgba(33, 33, 33, 0.8); /* Dark background */
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+  color: #2f4f4f;
+  background-color: rgba(255, 255, 255, 0.9); /* Light semi-transparent white */
+  padding: 30px 25px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  max-width: 900px;
+  margin: 40px auto;
+  font-family: 'Helvetica', sans-serif;
 }
 
 .skills-container {
   display: flex;
   justify-content: space-around;
+  gap: 40px;
+  flex-wrap: wrap;
   margin-top: 30px;
 }
 
 .skill-category {
-  max-width: 500px;
+  flex: 1 1 400px;
   padding: 10px;
 }
 
 .skill-category h3 {
-  color: #00BFFF; /* Neon blue */
+  color: #4caf50; /* Nature green */
   text-decoration: underline;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  font-family: 'Georgia', serif;
 }
 
 .skills-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
-.skills-table th, .skills-table td {
-  padding: 10px;
+.skills-table th,
+.skills-table td {
+  padding: 12px 15px;
   text-align: left;
-  border: 1px solid #B0B0B0;
+  border: 1px solid #a5d6a7; /* lighter green border */
+  font-style: italic;
+  font-size: 1rem;
+  color: #2f4f4f;
+  background-color: #e8f5e9; /* very light green background */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .skills-table th {
-  background-color: #333;
-  color: #00BFFF; /* Neon blue */
-}
-
-.skills-table td {
-  color: #B0B0B0;
-}
-
-.skills-table tr:hover {
-  background-color: #222;
-}
-
-.skills-table td, .skills-table th {
-  font-size: 1rem;
-  font-style: italic;
+  background-color: #c8e6c9; /* slightly darker light green */
+  color: #388e3c;
+  font-weight: 600;
 }
 
 .skills-table tr:hover td {
-  color: #00BFFF; /* Highlight text on hover with neon blue */
+  background-color: #a5d6a7; /* highlight row with green */
+  color: white;
+  font-weight: 600;
+  cursor: default;
 }
 </style>
