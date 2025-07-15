@@ -7,20 +7,22 @@
         <p class="hero-description">
           As a passionate and results-driven Fullstack Developer and Test Automation Engineer, I specialize in leveraging Java to build robust backend solutions while ensuring the highest quality standards through automated testing frameworks. With experience in both Java development and test automation strategies, I bridge the gap between software engineering and quality assurance. I am skilled in designing scalable, maintainable solutions and automating complex test scenarios, contributing to faster release cycles and seamless application performance. My expertise spans frontend, backend, and test automation technologies, making me a versatile asset for any development or quality-focused team.
         </p>
-        <br><br/>
+        <br /><br />
         <a href="javascript:void(0);" @click="showExperienceSection" class="cta-btn-experience">Experience</a>
-        <br><br/>
+        <br /><br />
         <a href="https://github.com/DeepBalusu91" class="cta-btn-experience">Personal Git Repo</a>
-        <br><br/>
+        <br /><br />
         <a href="javascript:void(0);" @click="showSkillsSection" class="cta-btn-experience">Skills</a>
-        <br><br/>
+        <br /><br />
         <a href="javascript:void(0);" @click="showContactSection" class="cta-btn-connect">Let's Connect!</a>
-        <br><br/>
+        <br /><br />
         <router-link to="/journal" class="cta-btn-experience">📓 My Journal (Admin access)</router-link>
-        <br><br/>
+        <br /><br />
         <router-link to="/books" class="cta-btn-experience">📚 My Insights on Books</router-link>
-        <br><br/>
-        <router-link to="/journal/view" class="cta-btn-experience">Public Journal View</router-link>
+        <br /><br />
+        <a href="javascript:void(0);" @click="confirmNavigateToPublicJournal" class="cta-btn-experience">
+          Public Journal View
+        </a>
       </div>
 
       <!-- Falling leaves container -->
@@ -107,6 +109,33 @@ export default {
         animationDelay: delay,
         animationDuration: duration,
       };
+    },
+    confirmNavigateToPublicJournal() {
+      if (this.$bvModal) {
+        this.$bvModal.msgBoxConfirm(
+          "⚠️ This is a public journal page. The content may be personal but is meant for public viewing.\n\nDo you wish to continue?",
+          {
+            title: "Public Journal Disclaimer",
+            size: "md",
+            buttonSize: "md",
+            okVariant: "success",
+            okTitle: "Yes, Proceed",
+            cancelTitle: "Cancel",
+            cancelVariant: "danger",
+            footerClass: "p-2",
+            hideHeaderClose: false,
+            centered: true,
+          }
+        ).then((confirmed) => {
+          if (confirmed) {
+            this.$router.push("/journal/view");
+          }
+        });
+      } else {
+        if (confirm("This is a public journal from an experimental app created for learning purposes. It contains personal stories — some thoughtful, some lighthearted — intended to inspire, inform, and amuse. Please note: while it's authentic and candid, the content may momentarily drift from the professional lane. Would you like to proceed?")) {
+          this.$router.push("/journal/view");
+        }
+      }
     }
   }
 }
@@ -115,7 +144,7 @@ export default {
 <style scoped>
 .nature-wrapper {
   min-height: 100vh;
-  background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80'); /* peaceful forest */
+  background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -128,7 +157,6 @@ export default {
   position: relative;
 }
 
-/* Hero Section */
 .hero {
   position: relative;
   max-width: 800px;
@@ -165,7 +193,6 @@ export default {
   box-shadow: 0 0 12px rgba(76, 175, 80, 0.6);
 }
 
-/* Buttons */
 .cta-btn-connect,
 .cta-btn-experience {
   background-color: #4caf50;
@@ -193,7 +220,6 @@ export default {
   transform: scale(1);
 }
 
-/* Contact Section */
 .contact-profile {
   padding: 40px 20px;
   background-color: rgba(255, 255, 255, 0.95);
@@ -231,7 +257,6 @@ export default {
   text-decoration: underline;
 }
 
-/* Headings */
 h1 {
   font-size: 3rem;
   font-weight: bold;
@@ -241,7 +266,6 @@ h1 {
   text-shadow: 0 0 12px rgba(76, 175, 80, 0.3);
 }
 
-/* Falling leaves animation styles */
 .leaves-container {
   pointer-events: none;
   position: absolute;

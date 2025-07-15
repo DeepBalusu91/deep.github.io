@@ -9,9 +9,7 @@
       <h1 class="text-success text-center mb-3">🌿 Public Journal View</h1>
 
       <p class="text-muted text-center mb-4 fst-italic" style="font-size: 0.95rem;">
-        🧪 This is a personal experimental journal app, built during my free time as a way to explore and learn
-        modern web technologies. The entries shared here reflect moments from my daily life — please enjoy them
-        respectfully, knowing that this space is meant more for creativity and learning than deep introspection.
+        🧪 This is a personal experimental journal app, built during my free time as a way to explore and learn modern web technologies. The entries shared here reflect past pages of my life which stuck with me — please enjoy them respectfully, knowing that this space is meant more for creativity and learning than deep introspection.
       </p>
 
       <div v-if="loading" class="text-center text-muted fw-semibold py-5">
